@@ -7,7 +7,7 @@ $password = "password";
 // try/catch: vangt fouten op zodat de site niet crasht met een lelijke foutmelding
 try {
     // new mysqli(): maakt de verbinding met de database
-    $conn = new mysqli($servername, $username, $password, "circuleather");
+    $conn = new mysqli($servername, $username, $password, "prijscheck");
     if ($conn->connect_error) {
         error_log($conn->connect_error); // error_log(): schrijft de fout weg in het serverlog
         exit($conn->connect_error); // exit(): stopt het script direct
