@@ -39,6 +39,7 @@
             <input type="radio" name="class" id="class-vlees" value="vlees" <?php if (isset($Class) && $Class === 'vlees') echo 'checked'; ?>><label for="class-vlees">vlees</label>
             <input type="radio" name="class" id="class-groente" value="groente" <?php if (isset($Class) && $Class === 'groente') echo 'checked'; ?>><label for="class-groente">groente</label>
             <input type="radio" name="class" id="class-fruit" value="fruit" <?php if (isset($Class) && $Class === 'fruit') echo 'checked'; ?>><label for="class-fruit">fruit</label>
+            <br>
             <input type="radio" name="class" id="class-brood" value="brood" <?php if (isset($Class) && $Class === 'brood') echo 'checked'; ?>><label for="class-brood">brood</label>
             <input type="radio" name="class" id="class-snacks" value="snacks" <?php if (isset($Class) && $Class === 'snacks') echo 'checked'; ?>><label for="class-snacks">snacks</label>
             <input type="radio" name="class" id="class-dranken" value="dranken" <?php if (isset($Class) && $Class === 'dranken') echo 'checked'; ?>><label for="class-dranken">dranken</label>
@@ -48,14 +49,23 @@
 
 
         <input type="number" name="ah" placeholder="AH" step="0.01" min="0" <?php if (isset($ah)) echo 'value="' . htmlspecialchars($ah) . '"'; ?>>
+        <br>
         <input type="number" name="lidl" placeholder="Lidl" step="0.01" min="0" <?php if (isset($Lidl)) echo 'value="' . htmlspecialchars($Lidl) . '"'; ?>>
+        <br>
         <input type="number" name="jumbo" placeholder="Jumbo" step="0.01" min="0" <?php if (isset($Jumbo)) echo 'value="' . htmlspecialchars($Jumbo) . '"'; ?>>
+        <br>
         <input type="number" name="vomar" placeholder="Vomar" step="0.01" min="0" <?php if (isset($Vomar)) echo 'value="' . htmlspecialchars($Vomar) . '"'; ?>>
+        <br>
         <input type="number" name="plus" placeholder="Plus" step="0.01" min="0" <?php if (isset($Plus)) echo 'value="' . htmlspecialchars($Plus) . '"'; ?>>
+        <br>
         <input type="number" name="dirk" placeholder="Dirk" step="0.01" min="0" <?php if (isset($Dirk)) echo 'value="' . htmlspecialchars($Dirk) . '"'; ?>>
+        <br>
         <input type="number" name="aldi" placeholder="Aldi" step="0.01" min="0" <?php if (isset($Aldi)) echo 'value="' . htmlspecialchars($Aldi) . '"'; ?>>
+        <br>
         <input type="number" name="dekamarkt" placeholder="Dekamarkt" step="0.01" min="0" <?php if (isset($Dekamarkt)) echo 'value="' . htmlspecialchars($Dekamarkt) . '"'; ?>>
+        <br>    
         <input type="number" name="spar" placeholder="Spar" step="0.01" min="0" <?php if (isset($Spar)) echo 'value="' . htmlspecialchars($Spar) . '"'; ?>>
+        <br>
         <input type="number" name="sligro" placeholder="Sligro" step="0.01" min="0" <?php if (isset($Sligro)) echo 'value="' . htmlspecialchars($Sligro) . '"'; ?>>
         <br>
         <input type="button" value="Annuleer" onclick="location.href='home.php'">

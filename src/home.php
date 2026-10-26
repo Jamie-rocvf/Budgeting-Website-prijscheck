@@ -1,5 +1,29 @@
 <?php
    $conn = require_once "partials/dbconnection.php";
+   $user_ID = 1; // tijdelijk, tot er een login is
+
+   // Verwerk de formulieren (POST), daarna terug naar dezelfde pagina
+   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+       $actie = $_POST['actie'] ?? '';
+       $prijzen_ID = (int)($_POST['prijzen_ID'] ?? 0);
+
+       if ($actie === 'toevoegen') {
+           $stmt = $conn->prepare("INSERT IGNORE INTO lijst (user_ID, prijzen_ID) VALUES (?, ?)");
+           $stmt->bind_param("ii", $user_ID, $prijzen_ID);
+           $stmt->execute();
+           $stmt->close();
+       } elseif ($actie === 'toevoegen_tp') {
+           $tp_ID = (int)($_POST['toevoegproduct_ID'] ?? 0);
+           $stmt = $conn->prepare("INSERT IGNORE INTO lijst (user_ID, toevoegproduct_ID) VALUES (?, ?)");
+           $stmt->bind_param("ii", $user_ID, $tp_ID);
+           $stmt->execute();
+           $stmt->close();
+       }
+
+       header("Location: " . $_SERVER['REQUEST_URI']);
+       exit;
+   }
+
    $stmt = $conn->prepare("SELECT * FROM prijzen");
    $stmt->execute();
    $result = $stmt->get_result();
@@ -28,23 +52,21 @@
 <header class="topbar">
   <div class="brand"></div> PrijsCheck</div>
   <nav class="tabs">
-    <a class="tab active" href="?view=vergelijker">vergelijker</a>
-    <a class="tab" href="?view=lijst">lijst</a>
+    <a class="tab active" href="home.php">vergelijker</a>
+    <a class="tab" href="list.php">lijst</a>
   </nav>
-  <div class="right">
-    <a class="icon" href="?view=add">+</a>
-  </div>
+
 </header>
 
-<input type="button" value="alle" onclick="location.href='test-1.php'">
-    <input type="button" value="zuivel" onclick="location.href='test-1.php?filter=zuivel'">
-    <input type="button" value="vlees" onclick="location.href='test-1.php?filter=vlees'">
-    <input type="button" value="groente" onclick="location.href='test-1.php?filter=groente'">
-    <input type="button" value="fruit" onclick="location.href='test-1.php?filter=fruit'">
-    <input type="button" value="brood" onclick="location.href='test-1.php?filter=brood'">
-    <input type="button" value="snacks" onclick="location.href='test-1.php?filter=snacks'">
-    <input type="button" value="dranken" onclick="location.href='test-1.php?filter=dranken'">
-    <input type="button" value="overig" onclick="location.href='test-1.php?filter=overig'">
+<input type="button" value="alle" onclick="location.href='home.php'">
+    <input type="button" value="zuivel" onclick="location.href='home.php?filter=zuivel'">
+    <input type="button" value="vlees" onclick="location.href='home.php?filter=vlees'">
+    <input type="button" value="groente" onclick="location.href='home.php?filter=groente'">
+    <input type="button" value="fruit" onclick="location.href='home.php?filter=fruit'">
+    <input type="button" value="brood" onclick="location.href='home.php?filter=brood'">
+    <input type="button" value="snacks" onclick="location.href='home.php?filter=snacks'">
+    <input type="button" value="dranken" onclick="location.href='home.php?filter=dranken'">
+    <input type="button" value="overig" onclick="location.href='home.php?filter=overig'">
 
 
     <h1>Prijzen</h1>
@@ -62,6 +84,7 @@
             <th>Dekamarkt</th>
             <th>Spar</th>
             <th>Sligro</th>
+            <th>Acties</th>
         </tr>
         <?php while ($row = mysqli_fetch_assoc($result)): ?>
         <tr>
@@ -77,6 +100,14 @@
             <td><?php echo $row['Dekamarkt']; ?></td>
             <td><?php echo $row['Spar']; ?></td>
             <td><?php echo $row['Sligro']; ?></td>
+            <td>
+                <form method="post" style="display:inline">
+                    <input type="hidden" name="actie" value="toevoegen">
+                    <input type="hidden" name="prijzen_ID" value="<?php echo $row['ID']; ?>">
+                    <button type="submit">+ lijst</button>
+                </form>
+                <a href="prijs.php?id=<?php echo $row['ID']; ?>">pas aan</a>
+            </td>
         </tr>
         <?php endwhile; ?>
     </table>
@@ -111,6 +142,7 @@
             <th>Dekamarkt</th>
             <th>Spar</th>
             <th>Sligro</th>
+            <th>Acties</th>
         </tr>
         <?php while ($row = mysqli_fetch_assoc($result)): ?>
         <tr>
@@ -126,6 +158,14 @@
             <td><?php echo $row['Dekamarkt']; ?></td>
             <td><?php echo $row['Spar']; ?></td>
             <td><?php echo $row['Sligro']; ?></td>
+            <td>
+                <form method="post" style="display:inline">
+                    <input type="hidden" name="actie" value="toevoegen_tp">
+                    <input type="hidden" name="toevoegproduct_ID" value="<?php echo $row['ID']; ?>">
+                    <button type="submit">+ lijst</button>
+                </form>
+                <a href="prijs.php?tabel=toevoegproduct&amp;id=<?php echo $row['ID']; ?>">pas aan</a>
+            </td>
         </tr>
         <?php endwhile; ?>
     </table>
