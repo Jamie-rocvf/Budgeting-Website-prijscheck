@@ -33,12 +33,6 @@
         </tr>
       </thead>
       <tbody>
-          <tr>
-            <td class="name">
-              <div class="name-row"><span><?= e($p['icon']) ?></span><?= e($p['name']) ?></div>
-              <span class="save">bespaar tot <?= euro($max - $min) ?></span>
-            </td>
-            <td class="unit"><?= e($p['unit']) ?></td>
       </tbody>
     </table>
   </div>
