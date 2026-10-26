@@ -3,3 +3,226 @@ body {
     margin: 0;
     padding: 0;
 }
+body {
+    background-color: #000000;
+}
+
+/* ===============================
+   PRIJSCHECK DARK THEME
+   =============================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#050816;
+    color:#fff;
+    padding:25px;
+}
+
+/* HEADER */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#0c1224;
+    border:1px solid #1c294d;
+    border-radius:16px;
+    padding:18px 30px;
+    margin-bottom:25px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    font-size:28px;
+    font-weight:700;
+    color:#fff;
+}
+
+.tabs{
+    display:flex;
+    gap:12px;
+}
+
+.tab{
+    text-decoration:none;
+    color:#8190c8;
+    background:#121a33;
+    padding:12px 24px;
+    border-radius:10px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.tab:hover,
+.tab.active{
+    background:#7868f8;
+    color:#fff;
+}
+
+.icon{
+    text-decoration:none;
+    color:#fff;
+    background:#7868f8;
+    padding:12px 18px;
+    border-radius:10px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+/* FILTER KNOPPEN */
+
+input[type="button"]{
+    background:#0c1327;
+    color:#9fb0f0;
+    border:1px solid #213056;
+    border-radius:12px;
+    padding:12px 22px;
+    margin:5px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
+    transition:.3s;
+}
+
+input[type="button"]:hover{
+    background:#7868f8;
+    color:#fff;
+    border-color:#7868f8;
+}
+
+/* TITELS */
+
+h1{
+    margin:30px 0 15px;
+    font-size:30px;
+    color:#fff;
+}
+
+/* TABELLEN */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#091121;
+    border:1px solid #172545;
+    border-radius:18px;
+    overflow:hidden;
+    margin-bottom:40px;
+}
+
+th{
+    background:#101933;
+    color:#627ac5;
+    padding:18px;
+    text-align:left;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+td{
+    padding:18px;
+    border-top:1px solid #18274a;
+    font-size:16px;
+    font-weight:600;
+}
+
+tr:hover{
+    background:#0d1730;
+}
+
+/* PRODUCT KOLOM */
+
+td:first-child{
+    color:#ffffff;
+    font-weight:700;
+}
+
+/* CLASS KOLOM */
+
+td:nth-child(2){
+    color:#6f83c8;
+}
+
+/* AH */
+
+th:nth-child(3),
+td:nth-child(3){
+    color:#ff6565;
+}
+
+/* LIDL */
+
+th:nth-child(4),
+td:nth-child(4){
+    color:#10e7a2;
+}
+
+/* JUMBO */
+
+th:nth-child(5),
+td:nth-child(5){
+    color:#ffb32c;
+}
+
+/* VOMAR */
+
+th:nth-child(6),
+td:nth-child(6){
+    color:#ff4f62;
+}
+
+/* PLUS */
+
+th:nth-child(7),
+td:nth-child(7){
+    color:#ff2f6d;
+}
+
+/* OVERIGE WINKELS */
+
+td:nth-child(n+8){
+    color:#ffffff;
+}
+
+/* AFGERONDE HOEKEN */
+
+table tr:first-child th:first-child{
+    border-top-left-radius:18px;
+}
+
+table tr:first-child th:last-child{
+    border-top-right-radius:18px;
+}
+
+/* SCROLLBAAR OP MOBIEL */
+
+table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    height:8px;
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#091121;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#7868f8;
+    border-radius:20px;
+}
