@@ -1,55 +1,55 @@
 <?php
-$conn = require_once "partials/dbconnection.php";
-$winkels = ['AH', 'Lidl', 'Jumbo', 'Vomar', 'Plus', 'Dirk', 'Aldi', 'Dekamarkt', 'Spar', 'Sligro'];
+    $conn = require_once "partials/dbconnection.php";
+    $winkels = ['AH', 'Lidl', 'Jumbo', 'Vomar', 'Plus', 'Dirk', 'Aldi', 'Dekamarkt', 'Spar', 'Sligro'];
 
-// Welke tabel: alleen deze twee zijn toegestaan
-$tabel = $_GET['tabel'] ?? 'prijzen';
-if (!in_array($tabel, ['prijzen', 'toevoegproduct'], true)) {
-    die("Ongeldige tabel.");
-}
-$id = (int)($_GET['id'] ?? 0);
+    // Welke tabel: alleen deze twee zijn toegestaan
+    $tabel = $_GET['tabel'] ?? 'prijzen';
+    if (!in_array($tabel, ['prijzen', 'toevoegproduct'], true)) {
+        die("Ongeldige tabel.");
+    }
+    $id = (int)($_GET['id'] ?? 0);
 
-// Opslaan (POST): alleen ingevulde, geldige prijzen worden aangepast
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $sets = [];
-    $types = "";
-    $values = [];
+    // Opslaan (POST): alleen ingevulde, geldige prijzen worden aangepast
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $sets = [];
+        $types = "";
+        $values = [];
 
-    foreach ($winkels as $w) {
-        $waarde = $_POST[$w] ?? '';
-        if ($waarde !== '' && is_numeric($waarde) && $waarde >= 0) {
-            $sets[] = "`$w` = ?";
-            $types .= "d";
-            $values[] = round((float)$waarde, 2);
+        foreach ($winkels as $w) {
+            $waarde = $_POST[$w] ?? '';
+            if ($waarde !== '' && is_numeric($waarde) && $waarde >= 0) {
+                $sets[] = "`$w` = ?";
+                $types .= "d";
+                $values[] = round((float)$waarde, 2);
+            }
         }
+
+        if ($sets && $id > 0) {
+            $types .= "i";
+            $values[] = $id;
+            $stmt = $conn->prepare("UPDATE `$tabel` SET " . implode(", ", $sets) . " WHERE ID = ?");
+            $stmt->bind_param($types, ...$values);
+            $stmt->execute();
+            $stmt->close();
+        }
+
+        header("Location: home.php");
+        exit;
     }
 
-    if ($sets && $id > 0) {
-        $types .= "i";
-        $values[] = $id;
-        $stmt = $conn->prepare("UPDATE `$tabel` SET " . implode(", ", $sets) . " WHERE ID = ?");
-        $stmt->bind_param($types, ...$values);
-        $stmt->execute();
-        $stmt->close();
+    // Het product ophalen
+    $stmt = $conn->prepare("SELECT * FROM `$tabel` WHERE ID = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $product = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+
+    if (!$product) {
+        die("Product niet gevonden.");
     }
 
-    header("Location: home.php");
-    exit;
-}
-
-// Het product ophalen
-$stmt = $conn->prepare("SELECT * FROM `$tabel` WHERE ID = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$product = $stmt->get_result()->fetch_assoc();
-$stmt->close();
-
-if (!$product) {
-    die("Product niet gevonden.");
-}
-
-// De kolom heet 'Class' in prijzen en 'class' in toevoegproduct
-$klasse = $product['Class'] ?? $product['class'] ?? '';
+    // De kolom heet 'Class' in prijzen en 'class' in toevoegproduct
+    $klasse = $product['Class'] ?? $product['class'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -57,6 +57,7 @@ $klasse = $product['Class'] ?? $product['class'] ?? '';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prijs aanpassen</title>
+  <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
 
