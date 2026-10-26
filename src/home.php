@@ -27,12 +27,10 @@
 <header class="topbar">
   <div class="brand"></div> PrijsCheck</div>
   <nav class="tabs">
-    <a class="tab active" href="?view=vergelijker">vergelijker</a>
-    <a class="tab" href="?view=lijst">lijst</a>
+    <a class="tab active" href="home.php">vergelijker</a>
+    <a class="tab" href="list.php">lijst</a>
   </nav>
-  <div class="right">
-    <a class="icon" href="?view=add">+</a>
-  </div>
+
 </header>
 
 <input type="button" value="alle" onclick="location.href='test-1.php'">
